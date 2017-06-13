@@ -5,21 +5,39 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import {tabReducer, productsReducer, pictureReducer, historyReducer} from './reducers/reducers.js';
+import {tabReducer, productReducer, basketReducer, historyReducer} from './reducers/reducers.js';
 
 
 let initialState = {
     tab: 1,
+     products: [
+                {
+                 id:4,
+                 productName: 'rasberries',  
+                 picture: 'https://www.organicfacts.net/wp-content/uploads/2013/05/Raspberry11.jpg', 
+                 price: 4},
+                
+                {
+                 id:2,
+                 productName: 'blueberries',  
+                 picture: 'https://cdn.authoritynutrition.com/wp-content/uploads/2015/02/three-blueberries.jpg', 
+                 price: 3},
+                
+                {
+                 id:3,
+                 productName: 'strawberries',  
+                 picture: 'http://i.dailymail.co.uk/i/pix/2015/05/18/00/24BA71B400000578-0-image-a-24_1431906929382.jpg', 
+                 price: 2}
+              ],
     basket: null,
-    imageUrl: 'http://www.gexing.me/uploads/allimg/141016/23040SH4-0.jpg',
     history: [{type: 'TEST'}]
      
 }
 
 let rootReducer = combineReducers({
 	tab: tabReducer,
-    basket: productsReducer,
-	imageUrl: pictureReducer,
+    products: productReducer,
+    basket: basketReducer,
 	history: historyReducer
 });
 const store = createStore(rootReducer, initialState);

@@ -1,4 +1,4 @@
-    import { CHANGE_TAB, CLICK_ON_ADD, VIEW_HISTORY } from '../actions/actions.js';
+    import { CHANGE_TAB, CLICK_ON_ADD, UPDATE_BASKET,  VIEW_HISTORY } from '../actions/actions.js';
 
 
 
@@ -11,9 +11,18 @@
 	}
 }
 
-    function productsReducer(state = [], action) {
+    function productReducer(state = [], action) {
+	switch( action.type ) {
+		case CLICK_ON_ADD:
+			return [...state, action.number];
+		default:
+			return state;
+	}
+}
+
+    function basketReducer(state = [], action) {
         switch(action.type) {
-            case 'CLICK_ON_ADD':
+            case UPDATE_BASKET:
                 return //show in basket
                 
             default: 
@@ -22,13 +31,10 @@
                           }
     }
 
-    function pictureReducer(state = '', action) {
-	return state;
-}
 
    function historyReducer(state = [], action) {
         switch(action.type) {
-            case 'VIEW_HISTORY':
+            case VIEW_HISTORY:
                 return //show all the actions
                 
             default: 
@@ -39,4 +45,4 @@
 
 
 
-    export { tabReducer, productsReducer, pictureReducer, historyReducer };
+    export { tabReducer, productReducer, basketReducer, historyReducer };

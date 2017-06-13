@@ -3,7 +3,7 @@ import '../App.css';
 import ListView from './ListView';
 import Picture from './picture';
 import History from './history';
-import {actionChangeTab, actionClickOnAdd, actionHistory} from '../actions/actions.js';
+import {actionChangeTab, actionClickOnAdd, actionUpdateBasket, actionHistory} from '../actions/actions.js';
 import {connect} from 'react-redux';
 
 
@@ -24,18 +24,16 @@ import {connect} from 'react-redux';
 export default ProductGallery;*/}
 
 
-class TabComponent extends Component {
+class ProductGallery extends Component {
 	constructor(props) {
 		super(props);
-		this.handleClickProduct = this.handleClickProduct.bind(this);
-		this.handleClickPicture = this.handleClickPicture.bind(this);
 		this.handleClickAddButton = this.handleClickAddButton.bind(this)
 		this.handleClickHistory = this.handleClickHistory.bind(this)
 	}
 	render() {
 		let view;
 		if( this.props.tab === 1 ) {
-			view = <ListView items={['blueberries', 'rasberries', 'strawberries', 'redcurrants', 'blackcurrants', 'lingonberries', 'blackberries', 'cherries']} />;
+			view = <ListView productsVariable={this.props.products} />;
 		} else if( this.props.tab === 2 ) {
 			view = <Picture image={this.props.imageUrl} />;
 		} else {
@@ -44,16 +42,15 @@ class TabComponent extends Component {
 		return (
 			<div className="App">
 			<div>
-				<button onClick={this.handleClickProduct}>Products</button>
-				<button onClick={this.handleClickPicture}>pic</button>
-				<button onClick={this.handleClickHistory}>histhistory</button>
+				<button onClick={this.handleClickHistory}>View history</button>
+                <button onClick={this.handleClickHistory}>View basket</button>
 				
 			</div>
 			<div>
 				{view}
 			</div>
 			<div>
-				<button onClick={this.handleClickAddButton}>Lägg till tal</button>
+				<button onClick={this.handleClickAddButton}>Admin- add product</button>
 			</div>
 		  </div>
 		);
@@ -63,12 +60,7 @@ class TabComponent extends Component {
 		this.props.dispatch( action );
 		this.props.dispatch( actionHistory(action) );
 	}
-	handleClickProduct(e) {
-		this.changeTab(1);
-	}
-	handleClickPicture(e) {
-		this.changeTab(3);
-	}
+	
 	handleClickHistory(e) {
 		this.changeTab(4);
 	}
@@ -83,9 +75,10 @@ function mapStateToProps(state) {
 	console.log('state:', state);
 	return {
 		tab: state.tab,
-		imageUrl: state.imageUrl,
+        products: state.products,
+		basket: state.basket,
 		history: state.history
 	}
 }
 
-export default connect(mapStateToProps)(TabComponent);
+export default connect(mapStateToProps)(ProductGallery);
