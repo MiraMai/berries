@@ -3,8 +3,9 @@ import '../App.css';
 import ListView from './ListView';
 import Picture from './picture';
 import History from './history';
-import {actionChangeTab, actionClickOnAdd, actionUpdateBasket, actionHistory} from '../actions/actions.js';
+import {actionChangeTab, actionClickOnAdd, actionUpdateBasket, actionHistory,actionShowBasket} from '../actions/actions.js';
 import {connect} from 'react-redux';
+import Basket from "./basket";
 
 
 
@@ -27,33 +28,60 @@ export default ProductGallery;*/}
 class ProductGallery extends Component {
 	constructor(props) {
 		super(props);
-		this.handleClickAddButton = this.handleClickAddButton.bind(this)
-		this.handleClickHistory = this.handleClickHistory.bind(this)
-        this.ClickOnAdd = this.ClickOnAdd.bind(this)
+		this.handleClickAddButton = this.handleClickAddButton.bind(this);
+		this.handleClickHistory = this.handleClickHistory.bind(this);
+        this.ClickOnAdd = this.ClickOnAdd.bind(this);
+        this.toggleBasket = this.toggleBasket.bind(this);
+        this.addToBasket = this.addToBasket.bind(this);
 	}
+
+	toggleBasket(){
+	    //this.setState({showBasket:!this.state.view.showBasket});
+        this.props.dispatch(actionShowBasket(!this.props.view.showBasket));
+    }
+
+    addToBasket(e){
+	    let elm = JSON.parse(e.target.attributes["data-item"].nodeValue);
+        this.props.dispatch(actionUpdateBasket(elm));
+    }
+
+
 	render() {
 		let view;
 		if( this.props.tab === 1 ) {
-			view = <ListView productsVariable={this.props.products} 
-                             ClickOnAdd={this.ClickOnAdd} />;
+			view = <ListView
+                productsVariable={this.props.products}
+                ClickOnAdd={this.ClickOnAdd}
+                addToBasket={this.addToBasket}
+            />;
 		} else if( this.props.tab === 2 ) {
 			view = <Picture image={this.props.imageUrl} />;
 		} else {
 			view = <History history={this.props.history} />;
-		} 
+		}
+
+
 		return (
 			<div className="App">
-			<div>
-				<button onClick={this.handleClickHistory}>View history</button>
-                <button onClick={this.handleClickHistory}>View basket</button>
-				
-			</div>
-			<div>
-				{view}
-			</div>
-			<div>
-				<button onClick={this.handleClickAddButton}>Admin- add product</button>
-			</div>
+                <div>
+                    <button onClick={this.handleClickHistory}>View history</button>
+                    <button onClick={this.toggleBasket}>View basket</button>
+
+                </div>
+                <div>
+                    {view}
+                </div>
+                <div>
+                    <button onClick={this.handleClickAddButton}>Admin- add product</button>
+                </div>
+                {this.props.view.showBasket &&
+                    <div>
+                        <Basket className="basket"
+                            basketItems={this.props.basket}
+                        />
+                    </div>
+                }
+
 		  </div>
 		);
 	}
@@ -83,7 +111,8 @@ function mapStateToProps(state) {
 		tab: state.tab,
         products: state.products,
 		basket: state.basket,
-		history: state.history
+		history: state.history,
+        view:state.view
 	}
 }
 

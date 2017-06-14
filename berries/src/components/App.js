@@ -12,8 +12,9 @@ class App extends Component {
             Berry num num..
           </h1>
         </div>
-            <ProductGallery />
+        <ProductGallery />
       </div>
+
     );
   }
 }

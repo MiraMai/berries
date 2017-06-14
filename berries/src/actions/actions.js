@@ -1,13 +1,15 @@
 const CHANGE_TAB = 'CHANGE_TAB';
 const CLICK_ON_ADD = 'CLICK_ON_ADD';
 const UPDATE_BASKET = 'UPDATE_BASKET';
+const UPDATE_HISTORY = 'UPDATE_HISTORY';
 const VIEW_HISTORY = 'VIEW_HISTORY';
+const VIEW_BASKET = 'VIEW_BASKET';
 
 function actionChangeTab(selectedTab) {
 	return {
 		type: CHANGE_TAB,
 		tab: selectedTab
-	}
+	};
 }
 
 function actionClickOnAdd(name, price, image) {
@@ -17,21 +19,28 @@ function actionClickOnAdd(name, price, image) {
         price:price,
         picture:image
         
-    }
+    };
 }
 
 function actionUpdateBasket(product) {
     return {
         type: UPDATE_BASKET,
         product
-    }
+    };
 }
 
 function actionHistory(action) {
 	return {
-		type: VIEW_HISTORY,
+		type: UPDATE_HISTORY,
 		action
-	}
+	};
 }
 
-export { CHANGE_TAB, actionChangeTab, CLICK_ON_ADD, actionClickOnAdd, UPDATE_BASKET, actionUpdateBasket, VIEW_HISTORY, actionHistory };
+function actionShowBasket(showBasket){
+    return{
+        type: VIEW_BASKET,
+        showBasket
+    };
+}
+
+export { CHANGE_TAB, actionChangeTab, CLICK_ON_ADD, actionClickOnAdd, UPDATE_BASKET, actionUpdateBasket, UPDATE_HISTORY, actionHistory,VIEW_HISTORY,VIEW_BASKET,actionShowBasket };

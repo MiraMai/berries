@@ -5,7 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import {tabReducer, productReducer, basketReducer, historyReducer} from './reducers/reducers.js';
+import {tabReducer, productReducer, basketReducer, historyReducer,changeViewReducer} from './reducers/reducers.js';
 
 
 let initialState = {
@@ -29,16 +29,21 @@ let initialState = {
                  picture: 'http://i.dailymail.co.uk/i/pix/2015/05/18/00/24BA71B400000578-0-image-a-24_1431906929382.jpg', 
                  price: 2}
               ],
-    basket: null,
-    history: [{type: 'TEST'}]
+    basket: [],
+    history: [{type: 'TEST'}],
+    view: {
+        showBasket: false,
+        showHistory:false
+    }
      
-}
+};
 
 let rootReducer = combineReducers({
 	tab: tabReducer,
     products: productReducer,
     basket: basketReducer,
-	history: historyReducer
+	history: historyReducer,
+    view:changeViewReducer
 });
 const store = createStore(rootReducer, initialState);
 
