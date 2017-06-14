@@ -10,10 +10,13 @@ function actionChangeTab(selectedTab) {
 	}
 }
 
-function actionClickOnAdd(product) {
+function actionClickOnAdd(name, price, image) {
     return {
         type: CLICK_ON_ADD,
-        product
+        productName: name,
+        price:price,
+        picture:image
+        
     }
 }
 

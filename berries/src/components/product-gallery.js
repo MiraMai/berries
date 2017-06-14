@@ -29,11 +29,13 @@ class ProductGallery extends Component {
 		super(props);
 		this.handleClickAddButton = this.handleClickAddButton.bind(this)
 		this.handleClickHistory = this.handleClickHistory.bind(this)
+        this.ClickOnAdd = this.ClickOnAdd.bind(this)
 	}
 	render() {
 		let view;
 		if( this.props.tab === 1 ) {
-			view = <ListView productsVariable={this.props.products} />;
+			view = <ListView productsVariable={this.props.products} 
+                             ClickOnAdd={this.ClickOnAdd} />;
 		} else if( this.props.tab === 2 ) {
 			view = <Picture image={this.props.imageUrl} />;
 		} else {
@@ -69,6 +71,10 @@ class ProductGallery extends Component {
 		this.props.dispatch(action);
 		this.props.dispatch( actionHistory(action) );
 	}
+    ClickOnAdd(name, price, image) {
+        let action= actionClickOnAdd(name, price, image); 
+        this.props.dispatch(action);
+    }
 }
 
 function mapStateToProps(state) {

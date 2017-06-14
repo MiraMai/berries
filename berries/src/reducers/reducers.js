@@ -14,7 +14,7 @@
     function productReducer(state = [], action) {
 	switch( action.type ) {
 		case CLICK_ON_ADD:
-			return [...state, action.number];
+			return [...state, action];
 		default:
 			return state;
 	}
