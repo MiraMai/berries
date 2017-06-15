@@ -5,7 +5,7 @@ var items = {name:undefined, price:undefined, image:undefined}
 function ListView(props) {
 	let i=0;
 	const list = props.productsVariable.map( x => 
-        <li id={x.productName + x.price} key={i++}>
+        <li id={x.price} key={i++}>
             <img className="images" src={x.picture} alt={x.productName} />
             <br />
             {x.productName}
@@ -13,6 +13,8 @@ function ListView(props) {
             price: {x.price}
             <br />
             <button data-item={JSON.stringify({title:x.productName, price: x.price})} onClick={props.addToBasket}>Add to basket</button>
+            <button id={x.price} 
+                    onClick={props.handleClickDeleteProduct}>Delete product</button>
         </li>
     );
     return (
@@ -24,7 +26,7 @@ function ListView(props) {
                  type=""  
                  placeholder="price"/>
           <input onChange={addProductImg} 
-                 type="text" placeholder="image"/>
+                 type="text" placeholder="imageURL"/>
         <button onClick={clickOnAdd}>
             Add product</button>  
         </div>
@@ -45,7 +47,7 @@ function ListView(props) {
     function clickOnAdd(){
         // func in tab componenet
         props.ClickOnAdd(items.name,items.price,items.image);    
-    };
+    }
     
     
 }

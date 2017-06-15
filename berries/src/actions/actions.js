@@ -4,6 +4,7 @@ const UPDATE_BASKET = 'UPDATE_BASKET';
 const UPDATE_HISTORY = 'UPDATE_HISTORY';
 const VIEW_HISTORY = 'VIEW_HISTORY';
 const VIEW_BASKET = 'VIEW_BASKET';
+const DELETE_PRODUCT = 'DELETE_PRODUCT';
 
 function actionChangeTab(selectedTab) {
 	return {
@@ -12,15 +13,26 @@ function actionChangeTab(selectedTab) {
 	};
 }
 
-function actionClickOnAdd(name, price, image) {
+function actionClickOnAdd(id, name, price, image) {
     return {
         type: CLICK_ON_ADD,
+        id:price,
         productName: name,
         price:price,
         picture:image
         
     };
 }
+function actionDeleteProduct (id, name, price, image) {
+    return{
+        type: DELETE_PRODUCT,
+        id: id,
+        productName: name,
+        price: price,
+        picture: image
+    };
+}
+
 
 function actionUpdateBasket(product) {
     return {
@@ -43,4 +55,13 @@ function actionShowBasket(showBasket){
     };
 }
 
-export { CHANGE_TAB, actionChangeTab, CLICK_ON_ADD, actionClickOnAdd, UPDATE_BASKET, actionUpdateBasket, UPDATE_HISTORY, actionHistory,VIEW_HISTORY,VIEW_BASKET,actionShowBasket };
+function actionShowHistory(showHistory) {
+	return {
+		type: VIEW_HISTORY,
+		showHistory
+	};
+}
+
+
+
+export { CHANGE_TAB, actionChangeTab, CLICK_ON_ADD, actionClickOnAdd, UPDATE_BASKET, actionUpdateBasket, UPDATE_HISTORY, actionHistory,VIEW_HISTORY,actionShowHistory, VIEW_BASKET,actionShowBasket, DELETE_PRODUCT, actionDeleteProduct };

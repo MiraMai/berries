@@ -1,4 +1,4 @@
-    import { CHANGE_TAB, CLICK_ON_ADD, UPDATE_BASKET,  UPDATE_HISTORY,VIEW_HISTORY, VIEW_BASKET } from '../actions/actions.js';
+    import { CHANGE_TAB, CLICK_ON_ADD, UPDATE_BASKET,  UPDATE_HISTORY,VIEW_HISTORY, VIEW_BASKET, DELETE_PRODUCT } from '../actions/actions.js';
 
 
 
@@ -15,10 +15,39 @@
         switch( action.type ) {
             case CLICK_ON_ADD:
                 return [...state, action];
-            default:
+            case DELETE_PRODUCT:
+                let newList =
+                    state.filter(function(element) {
+                    return element.id !== action.id;
+                });
+                console.log('must see');
+                console.log(state);
+                return newList;
+            default: 
+                return state; 
+                          }
+    }    
+/*default:
+                console.log('must see');
+                console.log(state);
                 return state;
         }
     }
+    
+    function deleteReducer (state = [], action) {
+        switch(action.type) {
+                case DELETE_PRODUCT:
+                let remove =
+                    [...state, action].filter(function(element) {
+                    return element.id !== action.id;
+                });
+                console.log('must see');
+                console.log(state);
+                return remove;
+            default: 
+                return state; 
+                          }
+    }*/
 
     function basketReducer(state = [], action) {
         switch(action.type) {

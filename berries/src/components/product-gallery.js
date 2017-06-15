@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
 import '../App.css';
 import ListView from './ListView';
-import Picture from './picture';
 import History from './history';
-import {actionChangeTab, actionClickOnAdd, actionUpdateBasket, actionHistory,actionShowBasket} from '../actions/actions.js';
+import {actionChangeTab, actionClickOnAdd, actionUpdateBasket, actionHistory,actionShowBasket, actionDeleteProduct} from '../actions/actions.js';
 import {connect} from 'react-redux';
 import Basket from "./basket";
-
-
-
-{/*class ProductGallery extends Component {
-  render() {
-    return (
-     
-        <div className="product-gallery">
-          <p>I'm the gallery</p>
-          {this.props.berryType.map((berryType, i)=> <Image {...this.props} key={i} i={i} berryType={berryType} />)}
-        </div>
-     
-    );
-  }
-}
-
-export default ProductGallery;*/}
 
 
 class ProductGallery extends Component {
@@ -33,32 +15,25 @@ class ProductGallery extends Component {
         this.ClickOnAdd = this.ClickOnAdd.bind(this);
         this.toggleBasket = this.toggleBasket.bind(this);
         this.addToBasket = this.addToBasket.bind(this);
+        this.handleClickDeleteProduct = this.handleClickDeleteProduct.bind(this);
 	}
-
-	toggleBasket(){
-	    //this.setState({showBasket:!this.state.view.showBasket});
-        this.props.dispatch(actionShowBasket(!this.props.view.showBasket));
-    }
-
-    addToBasket(e){
-	    let elm = JSON.parse(e.target.attributes["data-item"].nodeValue);
-        this.props.dispatch(actionUpdateBasket(elm));
-    }
-
 
 	render() {
 		let view;
 		if( this.props.tab === 1 ) {
 			view = <ListView
-                productsVariable={this.props.products}
-                ClickOnAdd={this.ClickOnAdd}
-                addToBasket={this.addToBasket}
+                        productsVariable={this.props.products}
+                        ClickOnAdd={this.ClickOnAdd}
+                        addToBasket={this.addToBasket}
+                        handleClickDeleteProduct = {this.handleClickDeleteProduct}
             />;
 		} else if( this.props.tab === 2 ) {
-			view = <Picture image={this.props.imageUrl} />;
-		} else {
-			view = <History history={this.props.history} />;
-		}
+			view = <History 
+                        onClick={this.handleClickHistory}
+                        history={this.props.history}
+                        ClickOnAdd={this.ClickOnAdd}
+                    />;
+		} 
 
 
 		return (
@@ -90,9 +65,14 @@ class ProductGallery extends Component {
 		this.props.dispatch( action );
 		this.props.dispatch( actionHistory(action) );
 	}
+    handleClickDeleteProduct(event) {
+        let product = event.target.id;
+        let action = actionDeleteProduct(product);
+        this.props.dispatch(action);
+    }
 	
 	handleClickHistory(e) {
-		this.changeTab(4);
+		this.changeTab(2);
 	}
 	changeTab(tab) {
 		let action = actionChangeTab(tab);
@@ -103,6 +83,16 @@ class ProductGallery extends Component {
         let action= actionClickOnAdd(name, price, image); 
         this.props.dispatch(action);
     }
+    toggleBasket(){
+	    //this.setState({showBasket:!this.state.view.showBasket});
+        this.props.dispatch(actionShowBasket(!this.props.view.showBasket));
+    }
+
+    addToBasket(e){
+	    let elm = JSON.parse(e.target.attributes["data-item"].nodeValue);
+        this.props.dispatch(actionUpdateBasket(elm));
+    }
+    
 }
 
 function mapStateToProps(state) {

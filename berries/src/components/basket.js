@@ -8,7 +8,7 @@ export default class Basket extends Component {
           return (
             <li key={index}>
                 <p>{item.title}</p>
-                <p>:-{item.price}</p>
+                <p>{item.price}SEK</p>
             </li>
           );
       });
