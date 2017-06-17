@@ -2,25 +2,31 @@ import React, { Component } from 'react';
 import '../App.css';
 
 
-export default class Basket extends Component {
-  render() {
-      let list = this.props.basketItems.map((item,index)=>{
-          return (
-            <li key={index}>
-                <p>{item.title}</p>
-                <p>{item.price}SEK</p>
-            </li>
-          );
-      });
-
-    return (
-        <div className="basket">
-            <p>I'm the basket</p>
-            <ul>
-                {list}
-            </ul>
-        </div>
+function Basket(props) {
+    
+    let i=0;
+	const list = props.productsVariable.map( item => 
+        <li id={item.productName + item.price} 
+            key={i++}>
+            <img className='basketImg' src={item.picture} alt='no image found' />
+            <span>{item.productName}, $ {item.price}</span> 
+            <button id={item.productName + item.price}
+                    className= 'basketBtn'                     
+                    onClick={props.handleClickDeleteBasket}> 
+                    Delete
+            </button>
+          </li> 
     );
-  }
+                                            
+	return ( 
+             <div className= 'basketPage'>
+                <h1 className= 'center'> My basket </h1>
+                <ul>{list}</ul>
+            </div>                                
+          );
+
+                            
 }
 
+    
+export default Basket;

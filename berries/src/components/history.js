@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 
 
-export default class History extends Component {
-    render() {
-        let historyList = 
-        this.props.historyItems.map((item,index)=>{
-            return (
-                <li key={index}>
-                    <p>{item.type}</p>
-                </li>
-            );
-        });
-        
-    return (
+function History(props) {
+	const historyList = 
+    props.history.map( (item, index) => 
+            <li id={item.type} key={index}>
+                {item.type}
+            </li> 
+     );
+	return (
         <div>
-            History: <ul>{historyList}</ul>
+            <h1>View history</h1> 
+            <ul>{historyList.reverse()}</ul>   
         </div>
-    );    
-    }
+    );
 }
 
-
+export default History;

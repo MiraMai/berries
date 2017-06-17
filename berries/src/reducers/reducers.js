@@ -1,89 +1,61 @@
-    import { CHANGE_TAB, CLICK_ON_ADD, UPDATE_BASKET,  UPDATE_HISTORY,VIEW_HISTORY, VIEW_BASKET, DELETE_PRODUCT } from '../actions/actions.js';
+import { CHANGE_TAB, ADD_PRODUCT, DELETE_PRODUCT, ADD_TO_BASKET, DELETE_BASKET, VIEW_HISTORY } from '../actions/actions.js';
 
 
 
-    function tabReducer(state = 1, action) {
-        switch( action.type ) {
-            case CHANGE_TAB:
-                return action.tab;
-            default:
-                return state;
-        }
-    }
+function tabReducer(state = 1, action) {
+	switch( action.type ) {
+		case CHANGE_TAB:
+			return action.tab;
+		default:
+			return state;
+	}
+}
 
-    function productReducer(state = [], action) {
-        switch( action.type ) {
-            case CLICK_ON_ADD:
-                return [...state, action];
-            case DELETE_PRODUCT:
-                let newList =
-                    state.filter(function(element) {
-                    return element.id !== action.id;
-                });
-                console.log('must see');
-                console.log(state);
-                return newList;
-            default: 
-                return state; 
-                          }
-    }    
-/*default:
-                console.log('must see');
-                console.log(state);
-                return state;
-        }
-    }
-    
-    function deleteReducer (state = [], action) {
-        switch(action.type) {
-                case DELETE_PRODUCT:
-                let remove =
-                    [...state, action].filter(function(element) {
-                    return element.id !== action.id;
-                });
-                console.log('must see');
-                console.log(state);
-                return remove;
-            default: 
-                return state; 
-                          }
-    }*/
+function productReducer(state = [], action) {
+	switch( action.type ) {
+        case ADD_PRODUCT:
+			return [...state, action];
+        case DELETE_PRODUCT:
+            console.log(action.id);
+			let newList =   
+            state.filter(function(item) {
+                console.log('inuti filter', item, action);
+			return item.id !== action.id;
+		});
+        console.log('newList after filter', newList, action);    
+		    return newList;
+        default:
+            return state;
+		}
+}
 
-    function basketReducer(state = [], action) {
-        switch(action.type) {
-            case UPDATE_BASKET:
-                return [...state, action.product];
-            default:
-                console.log(state, action);
-                return state;
-
-        }
-    }
+function basketReducer(state = [], action) {
+	switch(action.type ) {
+		case ADD_TO_BASKET:
+          return [...state, action];
+        case DELETE_BASKET:
+            let newList=
+                state.filter(function(item){
+                 return item.id !== action.id;    
+        });
+            return newList;
+		default:
+			return state;
+	}
+}
 
 
-   function historyReducer(state = [], action) {
-        switch(action.type) {
-            case UPDATE_HISTORY:
-                return //show all the actions
-                
-            default:
-                console.log(state, action);
-                return state;
+function viewHistoryReducer(state = [], action) {
+	switch( action.type ) {
+		case VIEW_HISTORY:
+			return [...state, action.action];
+		default:
+			return state;
+	}
+}
 
-        }
-    }
 
-    function changeViewReducer(state={}, action){
-        switch(action.type){
-            case VIEW_BASKET:
-                return {...state, showBasket: action.showBasket};
-            case VIEW_HISTORY:
-                return {...state, showHistory: action.showHistory};
-            default:
-                return state;
-        }
-    }
+export { tabReducer,productReducer, basketReducer, viewHistoryReducer };
 
 
 
-    export { tabReducer, productReducer, basketReducer, historyReducer, changeViewReducer };

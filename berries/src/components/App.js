@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import ProductGallery from './product-gallery';
+import TabComponent from './tab-component';
 
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
             Berry num num..
           </h1>
         </div>
-        <ProductGallery />
+        <TabComponent />
       </div>
 
     );
@@ -20,3 +20,4 @@ class App extends Component {
 }
 
 export default App;
+

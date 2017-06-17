@@ -1,10 +1,9 @@
 const CHANGE_TAB = 'CHANGE_TAB';
-const CLICK_ON_ADD = 'CLICK_ON_ADD';
-const UPDATE_BASKET = 'UPDATE_BASKET';
-const UPDATE_HISTORY = 'UPDATE_HISTORY';
+const ADD_PRODUCT = 'ADD_PRODUCT';
 const VIEW_HISTORY = 'VIEW_HISTORY';
-const VIEW_BASKET = 'VIEW_BASKET';
-const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const DELETE_PRODUCT='DELETE_PRODUCT';
+const ADD_TO_BASKET='ADD_TO_BASKET';
+const DELETE_BASKET='DELETE_BASKET';
 
 function actionChangeTab(selectedTab) {
 	return {
@@ -13,55 +12,55 @@ function actionChangeTab(selectedTab) {
 	};
 }
 
-function actionClickOnAdd(id, name, price, image) {
-    return {
-        type: CLICK_ON_ADD,
-        id:price,
-        productName: name,
-        price:price,
-        picture:image
-        
-    };
-}
-function actionDeleteProduct (id, name, price, image) {
-    return{
-        type: DELETE_PRODUCT,
-        id: id,
-        productName: name,
+function actionAddProduct(name, price, image) {
+	return {
+		type : ADD_PRODUCT,
+        id: name+price,
+		productName: name,
         price: price,
         picture: image
-    };
+	};
 }
 
-
-function actionUpdateBasket(product) {
-    return {
-        type: UPDATE_BASKET,
-        product
-    };
-}
-
-function actionHistory(action) {
+function actionDeleteProduct(id, name, price, image) {
 	return {
-		type: UPDATE_HISTORY,
+		type: DELETE_PRODUCT,
+        id: id,
+		productName: name,
+        price: price,
+        picture: image
+	};
+}
+
+function actionAddToBasket(id,name, price,image) {
+	return {
+		type: ADD_TO_BASKET,
+        id: id,
+		productName: name,
+        price: price,
+        picture: image
+	};
+}
+
+function actionDeleteBasket(id,name, price, image) {
+	return {
+		type: DELETE_BASKET,
+        id: id,
+		productName: name,
+        price: price,
+        picture: image
+	};
+}
+
+function actionViewHistory(action) {
+	return {
+		type: VIEW_HISTORY,
 		action
 	};
 }
 
-function actionShowBasket(showBasket){
-    return{
-        type: VIEW_BASKET,
-        showBasket
-    };
-}
 
-function actionShowHistory(showHistory) {
-	return {
-		type: VIEW_HISTORY,
-		showHistory
-	};
-}
+export { CHANGE_TAB, actionChangeTab, ADD_PRODUCT, actionAddProduct, DELETE_PRODUCT, actionDeleteProduct, ADD_TO_BASKET, actionAddToBasket, DELETE_BASKET, actionDeleteBasket, VIEW_HISTORY, actionViewHistory };
 
 
 
-export { CHANGE_TAB, actionChangeTab, CLICK_ON_ADD, actionClickOnAdd, UPDATE_BASKET, actionUpdateBasket, UPDATE_HISTORY, actionHistory,VIEW_HISTORY,actionShowHistory, VIEW_BASKET,actionShowBasket, DELETE_PRODUCT, actionDeleteProduct };
