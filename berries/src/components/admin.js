@@ -5,17 +5,17 @@ var product = {name:undefined, price:undefined, image:undefined}
 function Admin(props) {
 	 
     let i=0;
-	const productsList = props.productsVariable.map( item => 
+	const productsList = props.products.map( item => 
         <div className= 'products'
-             id={item.productName + item.price} 
+             id={item.productName + item.price + item.picture} 
              key={i++}>
             <img className='galleryImg' src={item.picture} alt='no image found' /> 
             <br />                                
             <span>{item.productName}</span> 
             <br />
-            <span>$ {item.price}</span> 
+            <span> ${item.price}</span> 
             <br/> 
-            <button id={item.productName+item.price}
+            <button id={item.productName + item.price + item.picture}
                     onClick={props.handleClickDeleteProduct}> 
                     Delete
          </button>           
@@ -62,14 +62,12 @@ function Admin(props) {
         product.image = imgOfNewProduct;
         
     } 
-    function addProduct(){                                   
+    function addProduct(){
         props.addproduct(product.name, product.price, product.image);
-      
-    
     };
     
     
-}
+} // end of component
 
 export default Admin;
 

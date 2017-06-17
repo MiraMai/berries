@@ -3,9 +3,9 @@ import React from 'react';
 function ProductGallery(props) {
     
     let i=0;
-	const list = props.productsVariable.map( item => 
+	const list = props.products.map( item => 
         <div className= 'products'
-             id={item.productName + item.price} 
+             id={item.productName + item.price + item.picture} 
              key={i++}>
             <img className='galleryImg' src={item.picture} alt='no image found' /> 
             <br />                                
@@ -13,7 +13,7 @@ function ProductGallery(props) {
             <br />
             <span>$ {item.price}</span> 
             <br/>                                
-            <button id= {item.productName + item.price}
+            <button id= {item.productName + item.price + item.picture}
                     onClick={addToBasketShop}> 
                 Add to your basket
             </button>
@@ -32,9 +32,9 @@ function ProductGallery(props) {
 
           
 
-  function addToBasketShop (e){
+  function addToBasketShop (event){
         
-    props.addToBasket(e.target.id);
+    props.addToBasket(event.target.id);
    
     }                                          
 }

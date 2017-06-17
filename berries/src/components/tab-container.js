@@ -1,35 +1,36 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import '../App.css';
-import ProductGallery from './product-gallery';
 import Admin from './admin';
 import Basket from './basket';
 import History from './history';
+import ProductGallery from './product-gallery';
 import { actionChangeTab, actionAddProduct, actionDeleteProduct, actionAddToBasket, actionDeleteBasket, actionViewHistory} from '../actions/actions.js';
 //  actions
-import {connect} from 'react-redux';
 
 class TabComponent extends Component {
 	constructor(props) {
 		super(props);
-		this.handleClickAdmin = this.handleClickAdmin.bind(this)
+        this.addToBasket=this.addToBasket.bind(this);
+        this.handleClickDeleteBasket=this.handleClickDeleteBasket.bind(this);
         this.handleClickHistory = this.handleClickHistory.bind(this)
+		this.handleClickAdmin = this.handleClickAdmin.bind(this)
 		this.handleClickProductGallery = this.handleClickProductGallery.bind(this)
 		this.addproduct=this.addproduct.bind(this);
-        this.addToBasket=this.addToBasket.bind(this);
-        this.handleClickBasket=this.handleClickBasket.bind(this);
-        this.handleClickDeleteBasket=this.handleClickDeleteBasket.bind(this);
         this.handleClickDeleteProduct = this.handleClickDeleteProduct.bind(this);
+        this.handleClickBasket=this.handleClickBasket.bind(this);
+
         
 	}
 	render() {
 		let view;
 		if( this.props.tab === 1 ) {
             view = <ProductGallery 
-                        productsVariable={this.props.products} addToBasket={this.addToBasket} 
+                        products={this.props.products} addToBasket={this.addToBasket} 
                     />;
 		} else if( this.props.tab === 2 ) {
             view = <Basket  
-                        productsVariable={this.props.basket} handleClickDeleteBasket={this.handleClickDeleteBasket}
+                        products={this.props.basket} handleClickDeleteBasket={this.handleClickDeleteBasket}
                     />;
 		
 		} else if( this.props.tab === 3 ) {
@@ -39,25 +40,29 @@ class TabComponent extends Component {
 		} 
         else if( this.props.tab === 4 ) {
             view = <Admin 
-                        productsVariable={this.props.products}  
+                        products={this.props.products}  
                         addproduct={this.addproduct}   
                         handleClickDeleteProduct={this.handleClickDeleteProduct}/>;
 		} 
 		return (
-			<div className="App">
-            <div className="tabheader">
-                <button onClick={this.handleClickProductGallery}>
-                    Product gallery
-                </button>
-                <button onClick={this.handleClickBasket}>
-                    Basket  
-                </button>
-                <button onClick={this.handleClickHistory}>
-                    History
-                </button>
-				<button onClick={this.handleClickAdmin}>
-                    Admin
-                </button>
+			<div className= 'menuTop'>
+            <div className='center'>
+                <div className='menu' 
+                     onClick={this.handleClickProductGallery}>
+                     product gallery
+                </div>
+                <div className='menu'
+                     onClick={this.handleClickBasket}>
+                     basket  
+                </div>
+                <div className='menu'
+                     onClick={this.handleClickHistory}>
+                     history
+                </div>
+				<div className='menu'
+                     onClick={this.handleClickAdmin}>
+                     admin
+                </div>
 			</div>
 			<div className="tabbody">
 				{view}
@@ -80,22 +85,7 @@ class TabComponent extends Component {
      handleClickAdmin(e) {
 		this.changeTab(4);
 	}
-    handleClickDeleteProduct(event) {
-        let productId = event.target.id;
-        let action = actionDeleteProduct(productId);
-        this.props.dispatch( action );
-        this.props.dispatch( actionViewHistory(action) );
-    }
-    handleClickDeleteBasket(event) {
-        let productId = event.target.id;
-        let action = actionDeleteBasket(productId);
-        this.props.dispatch( action );
-        this.props.dispatch( actionViewHistory(action) );
-    }
-    addproduct(name, price, image){
-        this.props.dispatch(actionAddProduct(name, price, image)); 
-        this.props.dispatch(actionViewHistory(actionAddProduct(name, price, image)));
-    }
+    
     addToBasket(e){
         let eachProduct = this.props.products;
         function find(productId, value) {
@@ -118,7 +108,26 @@ class TabComponent extends Component {
         this.props.dispatch(action); //we send the package to post office updates state
         this.props.dispatch(actionViewHistory(action));          
         
-}
+    }
+    
+    handleClickDeleteBasket(event) {
+        let productId = event.target.id;
+        let action = actionDeleteBasket(productId);
+        this.props.dispatch( action );
+        this.props.dispatch( actionViewHistory(action) );
+    }    
+    handleClickDeleteProduct(event) {
+        let productId = event.target.id;
+        let action = actionDeleteProduct(productId);
+        this.props.dispatch( action );
+        this.props.dispatch( actionViewHistory(action) );
+    }
+    
+    addproduct(name, price, image){
+        this.props.dispatch(actionAddProduct(name, price, image)); 
+        this.props.dispatch(actionViewHistory(actionAddProduct(name, price, image)));
+    }
+    
 	
 	changeTab(tab) {
 		let action = actionChangeTab(tab);

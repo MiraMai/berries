@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import '../App.css';
-import TabComponent from './tab-component';
+import TabContainer from './tab-container';
 
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className='center'>
         <div className="App-header">
           <h1>
             Berry num num..
           </h1>
         </div>
-        <TabComponent />
+        <TabContainer />
       </div>
 
     );

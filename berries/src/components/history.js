@@ -10,7 +10,7 @@ function History(props) {
             </li> 
      );
 	return (
-        <div>
+        <div className='page'>
             <h1>View history</h1> 
             <ul>{historyList.reverse()}</ul>   
         </div>
